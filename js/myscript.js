@@ -4,7 +4,7 @@ let app=angular.module("MyApp",[]);
 
 app.controller('MyCtrl',($scope, $http)=>{
     //contoller
-    $scope.title="Stay home Stay Safe";
+    $scope.title="Stay Home Stay Safe";
     console.log('App loaded');
 
     //calling api
@@ -16,4 +16,23 @@ app.controller('MyCtrl',($scope, $http)=>{
     (error)=>{
         console.log(error);
     });
+
+    //get country data
+    $scope.get_c_data=()=>{
+        let country=$scope.c;
+        if(country==''){
+            $scope.c_data='';
+            return;
+        }
+
+        $http.get(`${URL}/countries/${country}`)
+        .then(
+            (response)=>{
+                console.log(response.data);
+                $scope.c_data=response.data;
+            },
+            (error)=>{
+                console.log(error);
+            });
+    };
 });
